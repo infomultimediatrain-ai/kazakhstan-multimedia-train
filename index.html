@@ -82,10 +82,48 @@
         }
 
         .logo-text {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: #003366;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #003366 0%, #004b87 40%, #ffd700 70%, #f5c400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding: 4px 0;
+            text-shadow: none;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ffd700, #003366);
+            transition: width 0.4s ease;
+            -webkit-text-fill-color: initial;
+        }
+
+        .logo-block:hover .logo-text::after {
+            width: 100%;
+        }
+
+        .logo-block:hover .logo-text {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        @supports not (background-clip: text) {
+            .logo-text {
+                background: none;
+                -webkit-text-fill-color: #003366;
+                color: #003366;
+                text-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+            }
         }
 
         .right-block {
@@ -93,6 +131,59 @@
             align-items: center;
             gap: 20px;
             flex-wrap: wrap;
+        }
+
+        /* ===== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ ===== */
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 75, 135, 0.06);
+            border-radius: 40px;
+            padding: 4px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-switch:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #5a6f88;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .lang-btn:hover {
+            color: #003366;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ffd700, #f5c400);
+            color: #003366;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+            transform: scale(1.02);
+        }
+
+        .lang-btn.active:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .lang-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(0, 75, 135, 0.1);
         }
 
         .schedule-btn {
@@ -145,25 +236,21 @@
         /* ===== БАННЕР — КАРТИНКА ===== */
         .banner-section {
             margin: 30px 0 30px;
-            border-radius: 40px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 75, 135, 0.15);
-            background: #002f5e;
+            overflow: visible;
+            background: transparent;
+            box-shadow: none;
         }
 
         .banner-image {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
+            object-fit: contain;
             transition: transform 0.6s ease;
-            min-height: 300px;
-            max-height: 500px;
-            object-fit: cover;
         }
 
         .banner-image:hover {
-            transform: scale(1.01);
+            transform: scale(1.005);
         }
 
         /* ===== ЗАГОЛОВОК НАД ПЛЕЕРОМ ===== */
@@ -595,8 +682,8 @@
             }
 
             .banner-image {
-                min-height: 200px;
-                max-height: 350px;
+                min-height: auto;
+                max-height: none;
             }
 
             .hero-text h1 {
@@ -604,6 +691,10 @@
             }
             .hero-text .subtitle {
                 font-size: 0.95rem;
+            }
+
+            .logo-text {
+                font-size: 1rem;
             }
 
             .video-controls {
@@ -667,6 +758,14 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .lang-btn {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .lang-switch {
+                padding: 3px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -676,10 +775,6 @@
             .hero-text .subtitle {
                 font-size: 0.85rem;
             }
-            .banner-image {
-                min-height: 150px;
-                max-height: 250px;
-            }
             .video-controls .volume-control input[type="range"] {
                 width: 30px;
             }
@@ -688,12 +783,17 @@
                 height: 38px;
             }
             .logo-text {
-                font-size: 1rem;
+                font-size: 0.8rem;
+                letter-spacing: -0.2px;
             }
             .city-block .city-meta .date,
             .city-block .city-meta .time {
                 font-size: 0.75rem;
                 padding: 4px 12px;
+            }
+            .lang-btn {
+                font-size: 0.7rem;
+                padding: 3px 10px;
             }
         }
     </style>
@@ -706,15 +806,26 @@
                 <div class="logo-icon">
                     <img src="лого поезд.png" alt="Логотип" />
                 </div>
-                <span class="logo-text">Навигация</span>
+                <span class="logo-text">Kazakhstan multimedia train</span>
             </a>
             <div class="right-block">
-                <a href="#schedule" class="schedule-btn">
-                    <i class="fas fa-calendar-alt"></i> Расписание
+                <!-- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ -->
+                <div class="lang-switch" id="langSwitch">
+                    <button class="lang-btn active" data-lang="ru" id="langRu">РУС</button>
+                    <span class="lang-divider"></span>
+                    <button class="lang-btn" data-lang="kz" id="langKz">ҚАЗ</button>
+                </div>
+
+                <a href="#schedule" class="schedule-btn" id="scheduleBtn">
+                    <i class="fas fa-calendar-alt"></i> <span id="scheduleBtnText">Расписание</span>
                 </a>
                 <div class="social-icons">
-                    <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://t.me/Readandactgbsj" target="_blank" aria-label="Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://instagram.com/qazaq_bookwagon" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -723,22 +834,22 @@
     <main class="container">
         <!-- ===== БАННЕР — КАРТИНКА ===== -->
         <section class="banner-section">
-            <img src="баннер рус.jpeg" alt="Казахстанский мультимедийный поезд" class="banner-image" />
+            <img src="баннер рус.jpg" alt="Казахстанский мультимедийный поезд" class="banner-image" id="bannerImage" />
         </section>
 
         <!-- ===== ЗАГОЛОВОК НАД ПЛЕЕРОМ ===== -->
         <div class="hero-text">
-            <h1>Казахстанский <span class="yellow">мультимедийный</span> поезд</h1>
-            <p class="subtitle">
+            <h1 id="mainTitle">Казахстанский <span class="yellow">мультимедийный</span> поезд</h1>
+            <p class="subtitle" id="mainSubtitle">
                 Погрузитесь в атмосферное видео <span>отправление «Книжного Поезда!» 2026</span>
             </p>
         </div>
 
-        <!-- ===== ВИДЕОПЛЕЕР ===== -->
+        <!-- ===== ВИДЕОПЛЕЕР (5 видео) ===== -->
         <section class="video-section">
             <div class="video-header">
-                <span class="video-label"><i class="fas fa-film"></i> Мультимедийный вагон</span>
-                <span class="video-counter" id="videoCounter">1 / 6</span>
+                <span class="video-label" id="videoLabel"><i class="fas fa-film"></i> Мультимедийный вагон</span>
+                <span class="video-counter" id="videoCounter">1 / 5</span>
             </div>
 
             <div class="player-wrapper">
@@ -780,19 +891,19 @@
 
         <!-- ===== РАСПИСАНИЕ ===== -->
         <section class="schedule-section" id="schedule">
-            <h2 class="section-title">📅 Маршрут и расписание <span>поезда</span></h2>
+            <h2 class="section-title" id="scheduleTitle">📅 Маршрут и расписание <span>поезда</span></h2>
 
             <!-- АЛМАТЫ -->
-            <div class="city-block">
+            <div class="city-block" id="cityAlmaty">
                 <div class="city-header">
-                    <div class="city-name"><i class="fas fa-location-dot"></i> Алматы</div>
+                    <div class="city-name"><i class="fas fa-location-dot"></i> <span id="cityAlmatyName">Алматы</span></div>
                     <div class="city-meta">
-                        <span class="date"><i class="fas fa-calendar-day"></i> 7 сентября 2026</span>
-                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:25</span>
+                        <span class="date"><i class="fas fa-calendar-day"></i> <span id="almatyDate">7 сентября 2026</span></span>
+                        <span class="time"><i class="far fa-clock"></i> <span id="almatyTime">15:00 – 16:25</span></span>
                     </div>
                 </div>
-                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Алматы — перекрёсток книг и идей»</div>
-                <ul class="event-list">
+                <div class="city-subtitle" id="almatySubtitle"><i class="fas fa-quote-left"></i> «Алматы — перекрёсток книг и идей»</div>
+                <ul class="event-list" id="almatyEvents">
                     <li><strong>Приветствие</strong> — директор библиотеки Кадырбекова Б.А.</li>
                     <li><strong>Диалог о проекте «Читай и действуй»</strong> — Сагандыкова М.Н., Епифанова Н.А., Котов Д.А.</li>
                     <li><strong>«Проект „МҰРА“ — путь к победе и международному признанию»</strong></li>
@@ -802,16 +913,16 @@
             </div>
 
             <!-- АСТАНА -->
-            <div class="city-block">
+            <div class="city-block" id="cityAstana">
                 <div class="city-header">
-                    <div class="city-name"><i class="fas fa-location-dot"></i> Астана</div>
+                    <div class="city-name"><i class="fas fa-location-dot"></i> <span id="cityAstanaName">Астана</span></div>
                     <div class="city-meta">
-                        <span class="date"><i class="fas fa-calendar-day"></i> 8 сентября 2026</span>
-                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:50</span>
+                        <span class="date"><i class="fas fa-calendar-day"></i> <span id="astanaDate">8 сентября 2026</span></span>
+                        <span class="time"><i class="far fa-clock"></i> <span id="astanaTime">15:00 – 16:50</span></span>
                     </div>
                 </div>
-                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Станция по характеру»</div>
-                <ul class="event-list">
+                <div class="city-subtitle" id="astanaSubtitle"><i class="fas fa-quote-left"></i> «Станция по характеру»</div>
+                <ul class="event-list" id="astanaEvents">
                     <li><strong>Встреча с поэтом, писателем</strong> — Баянгали Алимжанов, Дина Ораз, библиотекари ЦБС г. Астаны, школьники, читатели</li>
                     <li><strong>Видеоролик</strong> — 15–20 минут</li>
                     <li><strong>Выступление Б. Алимжанова</strong> — «Читающая молодёжь — интеллектуальное будущее страны»</li>
@@ -826,16 +937,16 @@
             </div>
 
             <!-- АКТАУ -->
-            <div class="city-block">
+            <div class="city-block" id="cityAktau">
                 <div class="city-header">
-                    <div class="city-name"><i class="fas fa-location-dot"></i> Актау</div>
+                    <div class="city-name"><i class="fas fa-location-dot"></i> <span id="cityAktauName">Актау</span></div>
                     <div class="city-meta">
-                        <span class="date"><i class="fas fa-calendar-day"></i> 9 сентября 2026</span>
-                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:30</span>
+                        <span class="date"><i class="fas fa-calendar-day"></i> <span id="aktauDate">9 сентября 2026</span></span>
+                        <span class="time"><i class="far fa-clock"></i> <span id="aktauTime">15:00 – 16:30</span></span>
                     </div>
                 </div>
-                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Книжный маяк Мангистау»</div>
-                <ul class="event-list">
+                <div class="city-subtitle" id="aktauSubtitle"><i class="fas fa-quote-left"></i> «Книжный маяк Мангистау»</div>
+                <ul class="event-list" id="aktauEvents">
                     <li><strong>«Здравствуйте, это Актау»</strong> — приветствие</li>
                     <li><strong>«Литература Мангистау»</strong> — вечер-встреча с Султанбеком Кудайбергеном</li>
                     <li><strong>«Книжный маяк»</strong> — книжная выставка в фойе библиотеки, художественно-символическая линия: маяк → книга → путь → следующая остановка</li>
@@ -844,16 +955,16 @@
             </div>
 
             <!-- АКТОБЕ -->
-            <div class="city-block">
+            <div class="city-block" id="cityAktobe">
                 <div class="city-header">
-                    <div class="city-name"><i class="fas fa-location-dot"></i> Актобе</div>
+                    <div class="city-name"><i class="fas fa-location-dot"></i> <span id="cityAktobeName">Актобе</span></div>
                     <div class="city-meta">
-                        <span class="date"><i class="fas fa-calendar-day"></i> 10 сентября 2026</span>
-                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:30</span>
+                        <span class="date"><i class="fas fa-calendar-day"></i> <span id="aktobeDate">10 сентября 2026</span></span>
+                        <span class="time"><i class="far fa-clock"></i> <span id="aktobeTime">15:00 – 16:30</span></span>
                     </div>
                 </div>
-                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Актобе — книжные ворота Великой степи»</div>
-                <ul class="event-list">
+                <div class="city-subtitle" id="aktobeSubtitle"><i class="fas fa-quote-left"></i> «Актобе — книжные ворота Великой степи»</div>
+                <ul class="event-list" id="aktobeEvents">
                     <li><strong>«Книга и издательское дело: уроки прошлого — ориентир на будущее»</strong> — круглый стол</li>
                     <li><strong>Место проведения:</strong> Библиотека Автомобильно-дорожного колледжа</li>
                 </ul>
@@ -862,22 +973,22 @@
 
         <!-- ===== ФУТЕР ===== -->
         <footer class="footer">
-            <div class="copy">
+            <div class="copy" id="footerCopy">
                 © 2026 <i class="fas fa-train"></i> Казахстанский мультимедийный поезд
             </div>
         </footer>
     </main>
 
-    <!-- ===== СКРИПТ ДЛЯ ВИДЕОПЛЕЕРА ===== -->
+    <!-- ===== СКРИПТ ДЛЯ ВИДЕОПЛЕЕРА И ПЕРЕКЛЮЧАТЕЛЯ ===== -->
     <script>
+        // ===================== ВИДЕОПЛЕЕР =====================
         (function() {
             const videoSources = [
                 'video-1.mp4',
                 'video-2.mp4',
                 'video-3.mp4',
                 'video-4.mp4',
-                'video-5.mp4',
-                'video-6.mp4'
+                'video-5.mp4'
             ];
 
             let currentIndex = 0;
@@ -1043,6 +1154,207 @@
             });
 
             loadVideo(0);
+        })();
+
+        // ===================== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ =====================
+        (function() {
+            const langRu = document.getElementById('langRu');
+            const langKz = document.getElementById('langKz');
+            const langSwitch = document.getElementById('langSwitch');
+
+            // Контент на русском
+            const ruContent = {
+                scheduleBtn: 'Расписание',
+                mainTitle: 'Казахстанский <span class="yellow">мультимедийный</span> поезд',
+                mainSubtitle: 'Погрузитесь в атмосферное видео <span>отправление «Книжного Поезда!» 2026</span>',
+                videoLabel: 'Мультимедийный вагон',
+                scheduleTitle: '📅 Маршрут и расписание <span>поезда</span>',
+                cityAlmatyName: 'Алматы',
+                almatyDate: '7 сентября 2026',
+                almatyTime: '15:00 – 16:25',
+                almatySubtitle: '«Алматы — перекрёсток книг и идей»',
+                almatyEvents: [
+                    '<strong>Приветствие</strong> — директор библиотеки Кадырбекова Б.А.',
+                    '<strong>Диалог о проекте «Читай и действуй»</strong> — Сагандыкова М.Н., Епифанова Н.А., Котов Д.А.',
+                    '<strong>«Проект „МҰРА“ — путь к победе и международному признанию»</strong>',
+                    '<strong>«От книги к читателю»</strong> — встреча с издателем Байкенова Ш.М., директор издательства «Балалар әдебиеті»',
+                    '<strong>«Национальная библиотека — пространство чтения, знаний и культурного наследия»</strong>'
+                ],
+                cityAstanaName: 'Астана',
+                astanaDate: '8 сентября 2026',
+                astanaTime: '15:00 – 16:50',
+                astanaSubtitle: '«Станция по характеру»',
+                astanaEvents: [
+                    '<strong>Встреча с поэтом, писателем</strong> — Баянгали Алимжанов, Дина Ораз, библиотекари ЦБС г. Астаны, школьники, читатели',
+                    '<strong>Видеоролик</strong> — 15–20 минут',
+                    '<strong>Выступление Б. Алимжанова</strong> — «Читающая молодёжь — интеллектуальное будущее страны»',
+                    '<strong>Библиотекари ЦБС г. Астаны</strong> — «Узнай читателя по его книге»',
+                    '<strong>Эстафета для посетителей</strong> — «Рекомендует библиотекарь Астаны»',
+                    '<strong>Конкурс среди читателей</strong> — «Угадай книгу по трём признакам»',
+                    '<strong>«Литературный детектив»</strong>',
+                    '<strong>«1 минута на книгу»</strong>',
+                    '<strong>«Порекомендуй книгу следующему пассажиру»</strong>',
+                    '<strong>Вручение подарков</strong> — «Лучший читатель», «Знаток книг», «Активный участник»'
+                ],
+                cityAktauName: 'Актау',
+                aktauDate: '9 сентября 2026',
+                aktauTime: '15:00 – 16:30',
+                aktauSubtitle: '«Книжный маяк Мангистау»',
+                aktauEvents: [
+                    '<strong>«Здравствуйте, это Актау»</strong> — приветствие',
+                    '<strong>«Литература Мангистау»</strong> — вечер-встреча с Султанбеком Кудайбергеном',
+                    '<strong>«Книжный маяк»</strong> — книжная выставка в фойе библиотеки, художественно-символическая линия: маяк → книга → путь → следующая остановка',
+                    '<strong>«Книжный маяк Мангистау направляет свой свет в следующий город — Актобе»</strong>'
+                ],
+                cityAktobeName: 'Актобе',
+                aktobeDate: '10 сентября 2026',
+                aktobeTime: '15:00 – 16:30',
+                aktobeSubtitle: '«Актобе — книжные ворота Великой степи»',
+                aktobeEvents: [
+                    '<strong>«Книга и издательское дело: уроки прошлого — ориентир на будущее»</strong> — круглый стол',
+                    '<strong>Место проведения:</strong> Библиотека Автомобильно-дорожного колледжа'
+                ],
+                footerCopy: '© 2026 🚂 Казахстанский мультимедийный поезд'
+            };
+
+            // Контент на казахском (обновлённый)
+            const kzContent = {
+                scheduleBtn: 'Кесте',
+                mainTitle: 'Қазақстандық <span class="yellow">мультимедиялық</span> пойыз',
+                mainSubtitle: 'Атмосфералық видеоға еніңіз <span>«Кітап Пойызының!» 2026 жолға шығуы</span>',
+                videoLabel: 'Мультимедиялық вагон',
+                scheduleTitle: '📅 Пойыздың жүру бағыты және кестесі',
+                cityAlmatyName: 'Алматы',
+                almatyDate: '07.09.2026',
+                almatyTime: '15:00 – 16:25',
+                almatySubtitle: '«Алматы – кітаптар мен идеялар тоғысқан мекен»',
+                almatyEvents: [
+                    '<strong>Құттықтау сөзі</strong> — кітапхана директоры Б.А. Қадырбекова',
+                    '<strong>«Оқы және әрекет ет» жобасы туралы диалог</strong> — М.Н. Сағандықова, Н.А. Епифанова, Д.А. Котов',
+                    '<strong>«МҰРА» жобасы – жеңіске және халықаралық танылуға бастар жол</strong>',
+                    '<strong>«Кітаптан оқырманға»</strong> — «Балалар әдебиеті» баспасының директоры, баспагер Ш.М. Байкеновамен кездесу',
+                    '<strong>«Ұлттық кітапхана – оқу, білім және мәдени мұра кеңістігі»</strong>'
+                ],
+                cityAstanaName: 'Астана',
+                astanaDate: '08.09.2026',
+                astanaTime: '15:00 – 16:50',
+                astanaSubtitle: '«Өзіндік сипаты бар бекет»',
+                astanaEvents: [
+                    '<strong>Ақын-жазушылармен кездесу</strong> — Баянғали Әлімжанов, Дина Ораз, Астана қаласы ОКЖ кітапханашылары, оқушылар, оқырмандар',
+                    '<strong>Бейнеролик</strong> — 15–20 минут',
+                    '<strong>Жазушы Б. Әлімжановтың баяндамасы</strong> — «Кітап оқитын жастар – елдің зияткерлік болашағы»',
+                    '<strong>Астана қаласы ОКЖ кітапханашылары</strong> — «Оқырманды кітабынан таны»',
+                    '<strong>Кітапхана келушілеріне арналған эстафета</strong> — «Астана кітапханашысы ұсынады»',
+                    '<strong>Оқырмандар арасындағы байқау</strong> — «Кітапты үш белгісі бойынша тап»',
+                    '<strong>«Әдеби детектив»</strong>',
+                    '<strong>«Бір кітапқа – 1 минут»</strong>',
+                    '<strong>«Келесі жолаушыға кітап ұсын»</strong>',
+                    '<strong>Сыйлықтар табыстау</strong> — «Үздік оқырман», «Кітап білгірі», «Белсенді қатысушы»'
+                ],
+                cityAktauName: 'Ақтау',
+                aktauDate: '09.09.2026',
+                aktauTime: '15:00 – 16:30',
+                aktauSubtitle: '«Маңғыстаудың кітап шамшырағы»',
+                aktauEvents: [
+                    '<strong>«Сәлеметсіздер ме, бұл – Ақтау!»</strong> — құттықтау сөз',
+                    '<strong>«Маңғыстау әдебиеті»</strong> — Сұлтанбек Құдайбергенмен кездесу кеші',
+                    '<strong>«Кітап шамшырағы»</strong> — кітапхана фойесінде ұйымдастырылған кітап көрмесі, көркем-символдық желі: шамшырақ → кітап → жол → келесі аялдама',
+                    '<strong>«Маңғыстаудың кітап шамшырағы өз сәулесін келесі қала – Ақтөбеге бағыттайды»</strong>'
+                ],
+                cityAktobeName: 'Ақтөбе',
+                aktobeDate: '10.09.2026',
+                aktobeTime: '15:00 – 16:30',
+                aktobeSubtitle: '«Ақтөбе – Ұлы даланың кітап қақпасы»',
+                aktobeEvents: [
+                    '<strong>«Кітап және баспа ісі: өткеннің тағылымы – болашаққа бағдар»</strong> — дөңгелек үстел',
+                    '<strong>Өткізу орны:</strong> Ақтөбе автомобиль-жол колледжінің кітапханасы'
+                ],
+                footerCopy: '© 2026 🚂 Қазақстандық мультимедиялық пойыз'
+            };
+
+            let currentLang = 'ru';
+
+            function updateContent(lang) {
+                const content = lang === 'kz' ? kzContent : ruContent;
+
+                // Кнопка расписания
+                document.getElementById('scheduleBtnText').textContent = content.scheduleBtn;
+
+                // Заголовок и подзаголовок
+                document.getElementById('mainTitle').innerHTML = content.mainTitle;
+                document.getElementById('mainSubtitle').innerHTML = content.mainSubtitle;
+
+                // Видео лейбл
+                document.getElementById('videoLabel').innerHTML = '<i class="fas fa-film"></i> ' + content.videoLabel;
+
+                // Заголовок расписания
+                document.getElementById('scheduleTitle').innerHTML = content.scheduleTitle;
+
+                // Алматы
+                document.getElementById('cityAlmatyName').textContent = content.cityAlmatyName;
+                document.getElementById('almatyDate').textContent = content.almatyDate;
+                document.getElementById('almatyTime').textContent = content.almatyTime;
+                document.getElementById('almatySubtitle').innerHTML = '<i class="fas fa-quote-left"></i> ' + content.almatySubtitle;
+                const almatyList = document.getElementById('almatyEvents');
+                almatyList.innerHTML = content.almatyEvents.map(item => `<li>${item}</li>`).join('');
+
+                // Астана
+                document.getElementById('cityAstanaName').textContent = content.cityAstanaName;
+                document.getElementById('astanaDate').textContent = content.astanaDate;
+                document.getElementById('astanaTime').textContent = content.astanaTime;
+                document.getElementById('astanaSubtitle').innerHTML = '<i class="fas fa-quote-left"></i> ' + content.astanaSubtitle;
+                const astanaList = document.getElementById('astanaEvents');
+                astanaList.innerHTML = content.astanaEvents.map(item => `<li>${item}</li>`).join('');
+
+                // Актау
+                document.getElementById('cityAktauName').textContent = content.cityAktauName;
+                document.getElementById('aktauDate').textContent = content.aktauDate;
+                document.getElementById('aktauTime').textContent = content.aktauTime;
+                document.getElementById('aktauSubtitle').innerHTML = '<i class="fas fa-quote-left"></i> ' + content.aktauSubtitle;
+                const aktauList = document.getElementById('aktauEvents');
+                aktauList.innerHTML = content.aktauEvents.map(item => `<li>${item}</li>`).join('');
+
+                // Актобе
+                document.getElementById('cityAktobeName').textContent = content.cityAktobeName;
+                document.getElementById('aktobeDate').textContent = content.aktobeDate;
+                document.getElementById('aktobeTime').textContent = content.aktobeTime;
+                document.getElementById('aktobeSubtitle').innerHTML = '<i class="fas fa-quote-left"></i> ' + content.aktobeSubtitle;
+                const aktobeList = document.getElementById('aktobeEvents');
+                aktobeList.innerHTML = content.aktobeEvents.map(item => `<li>${item}</li>`).join('');
+
+                // Футер
+                document.getElementById('footerCopy').innerHTML = content.footerCopy;
+            }
+
+            // Переключение языка
+            function setLanguage(lang) {
+                currentLang = lang;
+                updateContent(lang);
+
+                // Активные кнопки
+                if (lang === 'ru') {
+                    langRu.classList.add('active');
+                    langKz.classList.remove('active');
+                } else {
+                    langKz.classList.add('active');
+                    langRu.classList.remove('active');
+                }
+
+                // Меняем картинку баннера
+                const bannerImg = document.getElementById('bannerImage');
+                if (lang === 'kz') {
+                    bannerImg.src = 'баннер каз.jpg';
+                } else {
+                    bannerImg.src = 'баннер рус.jpg';
+                }
+            }
+
+            // Обработчики кликов
+            langRu.addEventListener('click', () => setLanguage('ru'));
+            langKz.addEventListener('click', () => setLanguage('kz'));
+
+            // По умолчанию русский
+            setLanguage('ru');
         })();
     </script>
 </body>
