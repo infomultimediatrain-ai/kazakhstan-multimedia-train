@@ -1,0 +1,1 @@
+# kazakhstan-multimedia-train
