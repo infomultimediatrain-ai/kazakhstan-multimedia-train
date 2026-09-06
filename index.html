@@ -63,21 +63,26 @@
         .logo-icon {
             width: 52px;
             height: 52px;
-            background: linear-gradient(135deg, #004b87, #002f5e);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffd700;
-            font-size: 26px;
-            font-weight: 900;
+            overflow: hidden;
+            flex-shrink: 0;
             box-shadow: 0 6px 16px rgba(0, 75, 135, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            flex-shrink: 0;
+            background: #ffffff;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .logo-icon:hover {
-            transform: scale(1.05) rotate(-5deg);
+            transform: scale(1.05) rotate(-3deg);
             box-shadow: 0 8px 24px rgba(0, 75, 135, 0.4);
         }
 
@@ -679,6 +684,13 @@
                 gap: 6px;
                 align-items: flex-start;
             }
+            .logo-icon {
+                width: 42px;
+                height: 42px;
+            }
+            .logo-text {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -687,7 +699,9 @@
     <header class="top-bar">
         <div class="container">
             <a href="#" class="logo-block">
-                <div class="logo-icon">Қ</div>
+                <div class="logo-icon">
+                    <img src="лого поезд.png" alt="Логотип" />
+                </div>
                 <span class="logo-text">Навигация</span>
             </a>
             <div class="right-block">
