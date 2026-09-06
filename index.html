@@ -431,119 +431,126 @@
             color: #003366;
             border-left: 6px solid #ffd700;
             padding-left: 20px;
-            margin-bottom: 8px;
+            margin-bottom: 30px;
         }
 
         .schedule-section .section-title span {
             color: #ffd700;
         }
 
-        .schedule-section .section-sub {
-            font-size: 1rem;
-            color: #5a6f88;
-            margin-left: 26px;
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        .schedule-list {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        .schedule-item {
+        /* Блок города */
+        .city-block {
             background: #ffffff;
             border-radius: 28px;
             padding: 28px 32px;
+            margin-bottom: 28px;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 215, 0, 0.10);
+            border-left: 6px solid #ffd700;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .schedule-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, #ffd700, #f5c400);
-            border-radius: 0 4px 4px 0;
-            opacity: 0.6;
-        }
-
-        .schedule-item:hover {
+        .city-block:hover {
             transform: translateX(6px);
             box-shadow: 0 12px 40px rgba(0, 75, 135, 0.08);
-            border-color: rgba(255, 215, 0, 0.25);
         }
 
-        .schedule-item .item-header {
+        .city-block .city-header {
             display: flex;
-            align-items: baseline;
-            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
-        .schedule-item .item-date {
-            font-weight: 700;
-            font-size: 0.9rem;
+        .city-block .city-name {
+            font-size: 1.6rem;
+            font-weight: 800;
             color: #003366;
-            background: rgba(255, 215, 0, 0.12);
-            padding: 4px 16px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
         }
 
-        .schedule-item .item-date i {
+        .city-block .city-name i {
             color: #ffd700;
-            margin-right: 6px;
+            margin-right: 10px;
         }
 
-        .schedule-item .item-time {
+        .city-block .city-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .city-block .city-meta .date {
             font-weight: 700;
-            color: #ffd700;
+            color: #ffffff;
+            background: #004b87;
+            padding: 6px 18px;
+            border-radius: 40px;
             font-size: 0.95rem;
-            background: rgba(255, 215, 0, 0.08);
-            padding: 4px 16px;
-            border-radius: 40px;
-            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 75, 135, 0.2);
         }
 
-        .schedule-item .item-time i {
-            margin-right: 6px;
+        .city-block .city-meta .date i {
+            color: #ffd700;
+            margin-right: 8px;
         }
 
-        .schedule-item h3 {
-            font-size: 1.3rem;
+        .city-block .city-meta .time {
             font-weight: 700;
             color: #003366;
-            margin-bottom: 8px;
+            background: #ffd700;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
 
-        .schedule-item p {
-            color: #4a5f7a;
-            font-size: 0.98rem;
-            line-height: 1.7;
-            max-width: 850px;
+        .city-block .city-meta .time i {
+            color: #003366;
+            margin-right: 8px;
         }
 
-        .schedule-item .item-tag {
-            display: inline-block;
-            margin-top: 12px;
-            font-size: 0.75rem;
+        .city-block .city-subtitle {
+            font-size: 1.1rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: #004b87;
-            background: rgba(0, 75, 135, 0.06);
-            padding: 4px 16px;
-            border-radius: 30px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed rgba(255, 215, 0, 0.3);
+        }
+
+        .city-block .city-subtitle i {
+            color: #ffd700;
+            margin-right: 8px;
+        }
+
+        .city-block .event-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .city-block .event-list li {
+            padding: 6px 0 6px 24px;
+            position: relative;
+            color: #3d526b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .city-block .event-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: 700;
+        }
+
+        .city-block .event-list li strong {
+            color: #003366;
         }
 
         /* ===== ФУТЕР ===== */
@@ -626,30 +633,34 @@
                 padding: 4px 10px;
             }
 
-            .schedule-item {
-                padding: 22px 20px;
+            .city-block {
+                padding: 20px 18px;
             }
-            .schedule-item .item-header {
-                gap: 12px;
+            .city-block .city-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
-            .schedule-item .item-date,
-            .schedule-item .item-time {
-                font-size: 0.8rem;
-                padding: 3px 12px;
+            .city-block .city-name {
+                font-size: 1.3rem;
             }
-            .schedule-item h3 {
-                font-size: 1.1rem;
+            .city-block .city-meta {
+                gap: 10px;
             }
-            .schedule-item p {
-                font-size: 0.9rem;
+            .city-block .city-meta .date,
+            .city-block .city-meta .time {
+                font-size: 0.85rem;
+                padding: 5px 14px;
+            }
+            .city-block .city-subtitle {
+                font-size: 1rem;
+            }
+            .city-block .event-list li {
+                font-size: 0.88rem;
+                padding: 4px 0 4px 20px;
             }
 
             .schedule-section .section-title {
                 font-size: 1.7rem;
-            }
-            .schedule-section .section-sub {
-                font-size: 0.9rem;
-                margin-left: 20px;
             }
 
             .footer {
@@ -672,20 +683,17 @@
             .video-controls .volume-control input[type="range"] {
                 width: 30px;
             }
-            .schedule-item {
-                padding: 18px 16px;
-            }
-            .schedule-item .item-header {
-                flex-direction: column;
-                gap: 6px;
-                align-items: flex-start;
-            }
             .logo-icon {
                 width: 38px;
                 height: 38px;
             }
             .logo-text {
                 font-size: 1rem;
+            }
+            .city-block .city-meta .date,
+            .city-block .city-meta .time {
+                font-size: 0.75rem;
+                padding: 4px 12px;
             }
         }
     </style>
@@ -772,68 +780,83 @@
 
         <!-- ===== РАСПИСАНИЕ ===== -->
         <section class="schedule-section" id="schedule">
-            <h2 class="section-title">📅 Расписание <span>Казахского мультимедийного поезда</span></h2>
-            <p class="section-sub">В арт-пространстве поезда</p>
+            <h2 class="section-title">📅 Маршрут и расписание <span>поезда</span></h2>
 
-            <div class="schedule-list">
-                <!-- Событие 1 -->
-                <div class="schedule-item">
-                    <div class="item-header">
-                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
-                        <span class="item-time"><i class="far fa-clock"></i> 12:00 – 13:30</span>
+            <!-- АЛМАТЫ -->
+            <div class="city-block">
+                <div class="city-header">
+                    <div class="city-name"><i class="fas fa-location-dot"></i> Алматы</div>
+                    <div class="city-meta">
+                        <span class="date"><i class="fas fa-calendar-day"></i> 7 сентября 2026</span>
+                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:25</span>
                     </div>
-                    <h3>Презентация детского книжного движения «Жас Қалам»</h3>
-                    <p>
-                        Знакомство с казахстанским проектом, который возвращает детям интерес к осмысленному чтению 
-                        и объединяет вокруг книги детей, родителей, педагогов и писателей. Особенным событием встречи 
-                        станет торжественное подписание соглашения с автором сезона «Весна» Айгуль Ибраевой.
-                    </p>
-                    <span class="item-tag">Детям и родителям</span>
                 </div>
+                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Алматы — перекрёсток книг и идей»</div>
+                <ul class="event-list">
+                    <li><strong>Приветствие</strong> — директор библиотеки Кадырбекова Б.А.</li>
+                    <li><strong>Диалог о проекте «Читай и действуй»</strong> — Сагандыкова М.Н., Епифанова Н.А., Котов Д.А.</li>
+                    <li><strong>«Проект „МҰРА“ — путь к победе и международному признанию»</strong></li>
+                    <li><strong>«От книги к читателю»</strong> — встреча с издателем Байкенова Ш.М., директор издательства «Балалар әдебиеті»</li>
+                    <li><strong>«Национальная библиотека — пространство чтения, знаний и культурного наследия»</strong></li>
+                </ul>
+            </div>
 
-                <!-- Событие 2 -->
-                <div class="schedule-item">
-                    <div class="item-header">
-                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
-                        <span class="item-time"><i class="far fa-clock"></i> 14:30 – 15:30</span>
+            <!-- АСТАНА -->
+            <div class="city-block">
+                <div class="city-header">
+                    <div class="city-name"><i class="fas fa-location-dot"></i> Астана</div>
+                    <div class="city-meta">
+                        <span class="date"><i class="fas fa-calendar-day"></i> 8 сентября 2026</span>
+                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:50</span>
                     </div>
-                    <h3>Этно-концерт «Сарыарка»</h3>
-                    <p>
-                        Группа с историей, вдохновлённая казахскими народными мотивами, вновь выходит на сцену — 
-                        в день отправления мультимедийного поезда. Живое выступление с домброй, кобызом и 
-                        современными ритмами в уникальной аранжировке.
-                    </p>
-                    <span class="item-tag">Музыка</span>
                 </div>
+                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Станция по характеру»</div>
+                <ul class="event-list">
+                    <li><strong>Встреча с поэтом, писателем</strong> — Баянгали Алимжанов, Дина Ораз, библиотекари ЦБС г. Астаны, школьники, читатели</li>
+                    <li><strong>Видеоролик</strong> — 15–20 минут</li>
+                    <li><strong>Выступление Б. Алимжанова</strong> — «Читающая молодёжь — интеллектуальное будущее страны»</li>
+                    <li><strong>Библиотекари ЦБС г. Астаны</strong> — «Узнай читателя по его книге»</li>
+                    <li><strong>Эстафета для посетителей</strong> — «Рекомендует библиотекарь Астаны»</li>
+                    <li><strong>Конкурс среди читателей</strong> — «Угадай книгу по трём признакам»</li>
+                    <li><strong>«Литературный детектив»</strong></li>
+                    <li><strong>«1 минута на книгу»</strong></li>
+                    <li><strong>«Порекомендуй книгу следующему пассажиру»</strong></li>
+                    <li><strong>Вручение подарков</strong> — «Лучший читатель», «Знаток книг», «Активный участник»</li>
+                </ul>
+            </div>
 
-                <!-- Событие 3 -->
-                <div class="schedule-item">
-                    <div class="item-header">
-                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
-                        <span class="item-time"><i class="far fa-clock"></i> 16:00 – 16:45</span>
+            <!-- АКТАУ -->
+            <div class="city-block">
+                <div class="city-header">
+                    <div class="city-name"><i class="fas fa-location-dot"></i> Актау</div>
+                    <div class="city-meta">
+                        <span class="date"><i class="fas fa-calendar-day"></i> 9 сентября 2026</span>
+                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:30</span>
                     </div>
-                    <h3>«Перекрёсток эпох: от Абая до наших дней»</h3>
-                    <p>
-                        Встреча двух голосов казахстанской литературы — писателей и общественных деятелей. 
-                        Разговор о том, как менялась литература Казахстана, о традициях и новых смыслах, 
-                        которые рождаются на стыке поколений.
-                    </p>
-                    <span class="item-tag">Дискуссия</span>
                 </div>
+                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Книжный маяк Мангистау»</div>
+                <ul class="event-list">
+                    <li><strong>«Здравствуйте, это Актау»</strong> — приветствие</li>
+                    <li><strong>«Литература Мангистау»</strong> — вечер-встреча с Султанбеком Кудайбергеном</li>
+                    <li><strong>«Книжный маяк»</strong> — книжная выставка в фойе библиотеки, художественно-символическая линия: маяк → книга → путь → следующая остановка</li>
+                    <li><strong>«Книжный маяк Мангистау направляет свой свет в следующий город — Актобе»</strong></li>
+                </ul>
+            </div>
 
-                <!-- Событие 4 -->
-                <div class="schedule-item">
-                    <div class="item-header">
-                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
-                        <span class="item-time"><i class="far fa-clock"></i> 20:00 – 21:30</span>
+            <!-- АКТОБЕ -->
+            <div class="city-block">
+                <div class="city-header">
+                    <div class="city-name"><i class="fas fa-location-dot"></i> Актобе</div>
+                    <div class="city-meta">
+                        <span class="date"><i class="fas fa-calendar-day"></i> 10 сентября 2026</span>
+                        <span class="time"><i class="far fa-clock"></i> 15:00 – 16:30</span>
                     </div>
-                    <h3>Поэтический вечер «Ақындар алаңы»</h3>
-                    <p>
-                        Чтения стихов, музыкальные импровизации и разговор о роли поэзии в современном мире. 
-                        В программе — выступления известных поэтов, открытый микрофон и живое общение с публикой.
-                    </p>
-                    <span class="item-tag">Поэзия</span>
                 </div>
+                <div class="city-subtitle"><i class="fas fa-quote-left"></i> «Актобе — книжные ворота Великой степи»</div>
+                <ul class="event-list">
+                    <li><strong>«Книга и издательское дело: уроки прошлого — ориентир на будущее»</strong> — круглый стол</li>
+                    <li><strong>Место проведения:</strong> Библиотека Автомобильно-дорожного колледжа</li>
+                </ul>
             </div>
         </section>
 
