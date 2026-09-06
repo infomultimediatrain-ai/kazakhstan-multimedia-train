@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Казахстанский мультимедийный поезд</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #f0f4fc;
+            color: #1a2b4c;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ----- Верхняя панель ----- */
+        .top-bar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 14px 0;
+            border-bottom: 3px solid #ffd700;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .top-bar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #004b87, #002f5e);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-size: 26px;
+            font-weight: 900;
+            box-shadow: 0 6px 16px rgba(0, 75, 135, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.05) rotate(-5deg);
+            box-shadow: 0 8px 24px rgba(0, 75, 135, 0.4);
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #003366;
+            letter-spacing: -0.5px;
+        }
+
+        .right-block {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-btn {
+            background: linear-gradient(135deg, #ffd700, #f5c400);
+            color: #003366;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.35);
+        }
+
+        .schedule-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 28px rgba(255, 215, 0, 0.5);
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .social-icons a {
+            color: #4a5f7a;
+            font-size: 1.3rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 75, 135, 0.04);
+        }
+
+        .social-icons a:hover {
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.12);
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* ===== БАННЕР — ПРОСТО КАРТИНКА ===== */
+        .banner-section {
+            margin: 30px 0 30px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 75, 135, 0.15);
+            background: #002f5e;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            min-height: 300px;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .banner-image:hover {
+            transform: scale(1.01);
+        }
+
+        /* ===== ЗАГОЛОВОК НАД ПЛЕЕРОМ ===== */
+        .hero-text {
+            text-align: center;
+            padding: 10px 0 10px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.6rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #003366;
+            letter-spacing: -1px;
+        }
+
+        .hero-text h1 .yellow {
+            color: #ffd700;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #4a5f7a;
+            max-width: 600px;
+            margin: 8px auto 0;
+            line-height: 1.6;
+        }
+
+        .hero-text .subtitle span {
+            color: #ffd700;
+            font-weight: 500;
+        }
+
+        /* ===== ВИДЕОПЛЕЕР ===== */
+        .video-section {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 30px;
+            margin: 15px 0 40px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .video-section .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .video-section .video-header .video-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #003366;
+        }
+
+        .video-section .video-header .video-label i {
+            color: #ffd700;
+            margin-right: 8px;
+        }
+
+        .video-counter {
+            font-size: 0.9rem;
+            color: #7a8fa8;
+            font-weight: 500;
+            background: #f0f4fc;
+            padding: 4px 16px;
+            border-radius: 30px;
+        }
+
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+            background: #0a0a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .player-wrapper video {
+            width: 100%;
+            display: block;
+            background: #000;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+        }
+
+        /* Кастомные элементы управления */
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 24px 18px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .player-wrapper:hover .video-controls {
+            opacity: 1;
+        }
+
+        .video-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+
+        .video-controls button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .video-controls .play-btn {
+            font-size: 1.8rem;
+            color: #ffd700;
+        }
+
+        .video-controls .progress-container {
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .video-controls .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s ease;
+        }
+
+        .video-controls .progress-bar:hover {
+            height: 6px;
+        }
+
+        .video-controls .progress-fill {
+            height: 100%;
+            background: #ffd700;
+            border-radius: 4px;
+            width: 0%;
+            position: relative;
+            transition: width 0.1s linear;
+        }
+
+        .video-controls .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -4px;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .video-controls .progress-bar:hover .progress-fill::after {
+            opacity: 1;
+        }
+
+        .video-controls .time-display {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 400;
+            min-width: 90px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .video-controls .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-controls .volume-control input[type="range"] {
+            width: 60px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 4px;
+            outline: none;
+            transition: width 0.3s ease;
+        }
+
+        .video-controls .volume-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .video-controls .volume-control input[type="range"]::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .video-controls .volume-btn {
+            font-size: 1.2rem;
+            min-width: 30px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-buttons button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            font-size: 1.1rem;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-buttons button:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .nav-buttons button:active {
+            transform: scale(0.92);
+        }
+
+        /* ===== РАСПИСАНИЕ ===== */
+        .schedule-section {
+            margin: 40px 0 30px;
+        }
+
+        .schedule-section .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #003366;
+            border-left: 6px solid #ffd700;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .schedule-section .section-title span {
+            color: #ffd700;
+        }
+
+        .schedule-section .section-sub {
+            font-size: 1rem;
+            color: #5a6f88;
+            margin-left: 26px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .schedule-item {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 28px 32px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.10);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schedule-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffd700, #f5c400);
+            border-radius: 0 4px 4px 0;
+            opacity: 0.6;
+        }
+
+        .schedule-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 12px 40px rgba(0, 75, 135, 0.08);
+            border-color: rgba(255, 215, 0, 0.25);
+        }
+
+        .schedule-item .item-header {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .schedule-item .item-date {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #003366;
+            background: rgba(255, 215, 0, 0.12);
+            padding: 4px 16px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .schedule-item .item-date i {
+            color: #ffd700;
+            margin-right: 6px;
+        }
+
+        .schedule-item .item-time {
+            font-weight: 700;
+            color: #ffd700;
+            font-size: 0.95rem;
+            background: rgba(255, 215, 0, 0.08);
+            padding: 4px 16px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        .schedule-item .item-time i {
+            margin-right: 6px;
+        }
+
+        .schedule-item h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 8px;
+        }
+
+        .schedule-item p {
+            color: #4a5f7a;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            max-width: 850px;
+        }
+
+        .schedule-item .item-tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #004b87;
+            background: rgba(0, 75, 135, 0.06);
+            padding: 4px 16px;
+            border-radius: 30px;
+        }
+
+        /* ===== ФУТЕР ===== */
+        .footer {
+            margin-top: 40px;
+            padding: 25px 0 20px;
+            border-top: 3px solid #ffd700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer .copy {
+            font-size: 0.9rem;
+            color: #5a6f88;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .footer .copy i {
+            color: #ffd700;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 992px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .logo-block {
+                justify-content: center;
+            }
+            .right-block {
+                justify-content: center;
+            }
+
+            .banner-image {
+                min-height: 200px;
+                max-height: 350px;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            .hero-text .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .video-controls {
+                padding: 14px 16px 12px;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            .video-controls .progress-container {
+                min-width: 60px;
+                order: 10;
+                flex-basis: 100%;
+            }
+            .video-controls .volume-control input[type="range"] {
+                width: 40px;
+            }
+            .video-controls .time-display {
+                font-size: 0.75rem;
+                min-width: 70px;
+            }
+            .video-controls button {
+                font-size: 1.1rem;
+                padding: 4px 8px;
+                min-width: 32px;
+            }
+            .nav-buttons button {
+                font-size: 0.9rem;
+                padding: 4px 10px;
+            }
+
+            .schedule-item {
+                padding: 22px 20px;
+            }
+            .schedule-item .item-header {
+                gap: 12px;
+            }
+            .schedule-item .item-date,
+            .schedule-item .item-time {
+                font-size: 0.8rem;
+                padding: 3px 12px;
+            }
+            .schedule-item h3 {
+                font-size: 1.1rem;
+            }
+            .schedule-item p {
+                font-size: 0.9rem;
+            }
+
+            .schedule-section .section-title {
+                font-size: 1.7rem;
+            }
+            .schedule-section .section-sub {
+                font-size: 0.9rem;
+                margin-left: 20px;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.6rem;
+            }
+            .hero-text .subtitle {
+                font-size: 0.85rem;
+            }
+            .banner-image {
+                min-height: 150px;
+                max-height: 250px;
+            }
+            .video-controls .volume-control input[type="range"] {
+                width: 30px;
+            }
+            .schedule-item {
+                padding: 18px 16px;
+            }
+            .schedule-item .item-header {
+                flex-direction: column;
+                gap: 6px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== ВЕРХНЯЯ ПАНЕЛЬ ===== -->
+    <header class="top-bar">
+        <div class="container">
+            <a href="#" class="logo-block">
+                <div class="logo-icon">Қ</div>
+                <span class="logo-text">Навигация</span>
+            </a>
+            <div class="right-block">
+                <a href="#schedule" class="schedule-btn">
+                    <i class="fas fa-calendar-alt"></i> Расписание
+                </a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="VK"><i class="fab fa-vk"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- ===== БАННЕР — ПРОСТО КАРТИНКА ===== -->
+        <section class="banner-section">
+            <img src="баннер рус.jpg" alt="Казахстанский мультимедийный поезд" class="banner-image" />
+        </section>
+
+        <!-- ===== ЗАГОЛОВОК НАД ПЛЕЕРОМ ===== -->
+        <div class="hero-text">
+            <h1>Казахстанский <span class="yellow">мультимедийный</span> поезд</h1>
+            <p class="subtitle">
+                Погрузитесь в атмосферное видео <span>отправление «Книжного Поезда!» 2026</span>
+            </p>
+        </div>
+
+        <!-- ===== ВИДЕОПЛЕЕР ===== -->
+        <section class="video-section">
+            <div class="video-header">
+                <span class="video-label"><i class="fas fa-film"></i> Мультимедийный вагон</span>
+                <span class="video-counter" id="videoCounter">1 / 6</span>
+            </div>
+
+            <div class="player-wrapper">
+                <video id="mainVideo" poster="poster.jpg">
+                    <source src="video-1.mp4" type="video/mp4" />
+                    Ваш браузер не поддерживает видео.
+                </video>
+
+                <div class="video-controls" id="videoControls">
+                    <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+                        <i class="fas fa-play"></i>
+                    </button>
+
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                    </div>
+
+                    <div class="volume-control">
+                        <button class="volume-btn" id="volumeBtn" aria-label="Mute">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" />
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button id="prevBtn" aria-label="Предыдущее видео">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button id="nextBtn" aria-label="Следующее видео">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== РАСПИСАНИЕ ===== -->
+        <section class="schedule-section" id="schedule">
+            <h2 class="section-title">📅 Расписание <span>Казахского мультимедийного поезда</span></h2>
+            <p class="section-sub">В арт-пространстве поезда</p>
+
+            <div class="schedule-list">
+                <!-- Событие 1 -->
+                <div class="schedule-item">
+                    <div class="item-header">
+                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
+                        <span class="item-time"><i class="far fa-clock"></i> 12:00 – 13:30</span>
+                    </div>
+                    <h3>Презентация детского книжного движения «Жас Қалам»</h3>
+                    <p>
+                        Знакомство с казахстанским проектом, который возвращает детям интерес к осмысленному чтению 
+                        и объединяет вокруг книги детей, родителей, педагогов и писателей. Особенным событием встречи 
+                        станет торжественное подписание соглашения с автором сезона «Весна» Айгуль Ибраевой.
+                    </p>
+                    <span class="item-tag">Детям и родителям</span>
+                </div>
+
+                <!-- Событие 2 -->
+                <div class="schedule-item">
+                    <div class="item-header">
+                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
+                        <span class="item-time"><i class="far fa-clock"></i> 14:30 – 15:30</span>
+                    </div>
+                    <h3>Этно-концерт «Сарыарка»</h3>
+                    <p>
+                        Группа с историей, вдохновлённая казахскими народными мотивами, вновь выходит на сцену — 
+                        в день отправления мультимедийного поезда. Живое выступление с домброй, кобызом и 
+                        современными ритмами в уникальной аранжировке.
+                    </p>
+                    <span class="item-tag">Музыка</span>
+                </div>
+
+                <!-- Событие 3 -->
+                <div class="schedule-item">
+                    <div class="item-header">
+                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
+                        <span class="item-time"><i class="far fa-clock"></i> 16:00 – 16:45</span>
+                    </div>
+                    <h3>«Перекрёсток эпох: от Абая до наших дней»</h3>
+                    <p>
+                        Встреча двух голосов казахстанской литературы — писателей и общественных деятелей. 
+                        Разговор о том, как менялась литература Казахстана, о традициях и новых смыслах, 
+                        которые рождаются на стыке поколений.
+                    </p>
+                    <span class="item-tag">Дискуссия</span>
+                </div>
+
+                <!-- Событие 4 -->
+                <div class="schedule-item">
+                    <div class="item-header">
+                        <span class="item-date"><i class="fas fa-calendar-day"></i> 5 сентября</span>
+                        <span class="item-time"><i class="far fa-clock"></i> 20:00 – 21:30</span>
+                    </div>
+                    <h3>Поэтический вечер «Ақындар алаңы»</h3>
+                    <p>
+                        Чтения стихов, музыкальные импровизации и разговор о роли поэзии в современном мире. 
+                        В программе — выступления известных поэтов, открытый микрофон и живое общение с публикой.
+                    </p>
+                    <span class="item-tag">Поэзия</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ФУТЕР ===== -->
+        <footer class="footer">
+            <div class="copy">
+                © 2026 <i class="fas fa-train"></i> Казахстанский мультимедийный поезд
+            </div>
+        </footer>
+    </main>
+
+    <!-- ===== СКРИПТ ДЛЯ ВИДЕОПЛЕЕРА ===== -->
+    <script>
+        (function() {
+            const videoSources = [
+                'video-1.mp4',
+                'video-2.mp4',
+                'video-3.mp4',
+                'video-4.mp4',
+                'video-5.mp4',
+                'video-6.mp4'
+            ];
+
+            let currentIndex = 0;
+            const video = document.getElementById('mainVideo');
+            const playBtn = document.getElementById('playBtn');
+            const progressFill = document.getElementById('progressFill');
+            const progressBar = document.getElementById('progressBar');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const volumeBtn = document.getElementById('volumeBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const videoCounter = document.getElementById('videoCounter');
+
+            let isDragging = false;
+
+            function loadVideo(index) {
+                if (index < 0) index = videoSources.length - 1;
+                if (index >= videoSources.length) index = 0;
+                currentIndex = index;
+                video.src = videoSources[currentIndex];
+                video.load();
+                video.play().catch(() => {});
+                updateCounter();
+                updatePlayButton();
+            }
+
+            function updateCounter() {
+                videoCounter.textContent = `${currentIndex + 1} / ${videoSources.length}`;
+            }
+
+            function updatePlayButton() {
+                const icon = playBtn.querySelector('i');
+                if (video.paused) {
+                    icon.className = 'fas fa-play';
+                } else {
+                    icon.className = 'fas fa-pause';
+                }
+            }
+
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            function updateProgress() {
+                if (!isDragging) {
+                    const percent = (video.currentTime / video.duration) * 100 || 0;
+                    progressFill.style.width = `${percent}%`;
+                }
+                timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+            }
+
+            video.addEventListener('timeupdate', updateProgress);
+            video.addEventListener('loadedmetadata', () => {
+                timeDisplay.textContent = `0:00 / ${formatTime(video.duration)}`;
+            });
+
+            video.addEventListener('play', updatePlayButton);
+            video.addEventListener('pause', updatePlayButton);
+            video.addEventListener('ended', () => {
+                nextVideo();
+            });
+
+            playBtn.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
+                updatePlayButton();
+            });
+
+            video.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
+                updatePlayButton();
+            });
+
+            progressBar.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                const rect = progressBar.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                video.currentTime = percent * video.duration;
+                progressFill.style.width = `${percent * 100}%`;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const rect = progressBar.getBoundingClientRect();
+                    let percent = (e.clientX - rect.left) / rect.width;
+                    percent = Math.max(0, Math.min(1, percent));
+                    video.currentTime = percent * video.duration;
+                    progressFill.style.width = `${percent * 100}%`;
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                }
+            });
+
+            volumeSlider.addEventListener('input', () => {
+                video.volume = volumeSlider.value;
+                updateVolumeIcon();
+            });
+
+            volumeBtn.addEventListener('click', () => {
+                if (video.muted) {
+                    video.muted = false;
+                    volumeSlider.value = video.volume;
+                } else {
+                    video.muted = true;
+                    volumeSlider.value = 0;
+                }
+                updateVolumeIcon();
+            });
+
+            function updateVolumeIcon() {
+                const icon = volumeBtn.querySelector('i');
+                if (video.muted || video.volume === 0) {
+                    icon.className = 'fas fa-volume-mute';
+                } else if (video.volume < 0.5) {
+                    icon.className = 'fas fa-volume-down';
+                } else {
+                    icon.className = 'fas fa-volume-up';
+                }
+            }
+
+            function nextVideo() {
+                const nextIndex = (currentIndex + 1) % videoSources.length;
+                loadVideo(nextIndex);
+            }
+
+            function prevVideo() {
+                const prevIndex = (currentIndex - 1 + videoSources.length) % videoSources.length;
+                loadVideo(prevIndex);
+            }
+
+            nextBtn.addEventListener('click', nextVideo);
+            prevBtn.addEventListener('click', prevVideo);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT') return;
+                if (e.key === ' ' || e.key === 'Space') {
+                    e.preventDefault();
+                    playBtn.click();
+                }
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    nextVideo();
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevVideo();
+                }
+            });
+
+            loadVideo(0);
+        })();
+    </script>
+</body>
+</html>
